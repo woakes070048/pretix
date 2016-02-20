@@ -167,6 +167,7 @@ for entry_point in iter_entry_points(group='pretix.plugin', name=None):
     INSTALLED_APPS.append(entry_point.module_name)
 
 MIDDLEWARE_CLASSES = [
+    'pretix.base.middleware.CProfileMiddleware',
     'pretix.multidomain.middlewares.MultiDomainMiddleware',
     'pretix.multidomain.middlewares.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

@@ -1,3 +1,6 @@
+import json
+import os
+import time
 from collections import OrderedDict
 
 import pytz
@@ -129,3 +132,27 @@ def get_language_from_request(request: HttpRequest) -> str:
         or get_language_from_browser(request)
         or get_default_language()
     )
+
+
+class CProfileMiddleware:
+    profdir = os.path.join(settings.DATA_DIR, 'profiles')
+
+    def process_request(self, request):
+        import cProfile
+        request._starttime = time.time()
+        self.profiler = cProfile.Profile()
+        self.profiler.enable()
+
+        if not os.path.exists(self.profdir):
+            os.mkdir(self.profdir)
+
+    def process_response(self, request, response):
+        from django.db import connection
+
+        self.profiler.disable()
+        self.profiler.dump_stats(os.path.join(self.profdir, '%s_%d.pstat' % (request.path[1:].replace("/", "_"),
+                                                                             time.time())))
+        diff = time.time() - request._starttime
+        response['X-View-Time'] = str(diff)
+        response['X-Querycnt'] = len(connection.queries)
+        return response
