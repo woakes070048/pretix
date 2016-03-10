@@ -160,7 +160,8 @@ INSTALLED_APPS = [
     'pretix.plugins.statistics',
     'pretix.plugins.reports',
     'pretix.plugins.pretixdroid',
-    'easy_thumbnails'
+    'easy_thumbnails',
+    'datetimewidget'
 ]
 
 for entry_point in iter_entry_points(group='pretix.plugin', name=None):

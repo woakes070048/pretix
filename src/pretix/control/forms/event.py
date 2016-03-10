@@ -1,3 +1,4 @@
+from datetimewidget.widgets import DateTimeWidget
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -61,6 +62,9 @@ class EventUpdateForm(I18nModelForm):
             'presale_start',
             'presale_end',
         ]
+        widgets = {
+            'date_from': DateTimeWidget(attrs={'data-notreadonly': ''}, usel10n=True, bootstrap_version=3)
+        }
 
 
 class EventSettingsForm(SettingsForm):

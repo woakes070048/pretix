@@ -8,6 +8,7 @@
             {{ settings.PRETIX_INSTANCE_NAME }}</title>
 		{% compress css %}
     		<link rel="stylesheet" type="text/less" href="{% static "pretixcontrol/less/main.less" %}" />
+            <link rel="stylesheet" type="text/less" href="{% static "css/datetimepicker.css" %}" />
 		{% endcompress %}
 		{% compress js %}
             <script type="text/javascript" src="{% static "jquery/js/jquery-2.1.1.min.js" %}"></script>
@@ -16,7 +17,11 @@
             <script type="text/javascript" src="{% static "pretixcontrol/js/metisMenu.min.js" %}"></script>
             <script type="text/javascript" src="{% static "pretixcontrol/js/sb-admin-2.js" %}"></script>
 		    <script type="text/javascript" src="{% static "pretixcontrol/js/ui/main.js" %}"></script>
+            <script type="text/javascript" src="{% static "js/bootstrap-datetimepicker.js" %}"></script>
 		{% endcompress %}
+        {% if request.LANGUAGE_CODE != 'en' %}
+            <script type="text/javascript" src="{% static "js/locales/bootstrap-datetimepicker."|add:request.LANGUAGE_CODE|add:".js" %}"></script>
+        {% endif %}
         {{ html_head|safe }}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{% static "pretixbase/img/favicon.ico" %}">
