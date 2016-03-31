@@ -5,9 +5,9 @@
     </div>
 {% elif avail < 100 %}
     <div class="col-md-2 col-xs-6 availability-box unavailable">
-        <strong>{% trans "Reserved" %}</strong><br />
-        <small>
-            {% trans "All remaining products are reserved but might become available again." %}
-        </small>
+        <strong>{% trans "Reserved" %}
+            <span class="fa fa-info-circle" data-toggle="tooltip"
+                  title="{% trans "All remaining products are reserved but might become available again." %}"></span>
+        </strong>
     </div>
 {% endif %}

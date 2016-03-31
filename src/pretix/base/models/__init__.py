@@ -13,6 +13,7 @@ from .orders import (
 )
 from .organizer import Organizer, OrganizerPermission, OrganizerSetting
 from .vouchers import Voucher
+from .waitinglist import WaitingListEntry
 
 __all__ = [
     'User', 'CachedFile', 'Organizer', 'OrganizerPermission', 'Event', 'EventPermission',
@@ -20,5 +21,5 @@ __all__ = [
     'BaseRestriction', 'Quota', 'Order', 'CachedTicket', 'QuestionAnswer', 'AbstractPosition', 'OrderPosition',
     'CartPosition', 'EventSetting', 'OrganizerSetting', 'EventLock', 'cachedfile_name', 'itempicture_upload_to',
     'generate_secret', 'Voucher', 'LogEntry', 'InvoiceAddress', 'generate_position_secret', 'InvoiceLine',
-    'Invoice', 'invoice_filename', 'QuestionOption'
+    'Invoice', 'invoice_filename', 'QuestionOption', 'WaitingListEntry'
 ]

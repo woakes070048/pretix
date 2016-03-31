@@ -19,6 +19,8 @@ $(function () {
         $("#voucher-box").slideDown();
         $("#voucher-toggle").slideUp();
     });
+    
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 var waitingDialog = {

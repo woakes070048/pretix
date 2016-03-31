@@ -70,6 +70,10 @@
                             <div class="col-xs-3 text-right"> – {{ quota.count_in_cart }}</div>
                         </div>
                         <div class="row">
+                            <div class="col-xs-9">{% trans "Waiting list" %}</div>
+                            <div class="col-xs-3 text-right"> – {{ quota.count_waiting_list_pending }}</div>
+                        </div>
+                        <div class="row">
                             <div class="col-xs-9"><strong>{% trans "Current availability" %}</strong></div>
                             <div class="col-xs-3 text-right"><strong>{{ quota.availability.1 }}</strong></div>
                         </div>
