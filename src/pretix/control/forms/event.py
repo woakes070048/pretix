@@ -130,6 +130,14 @@ class EventSettingsForm(SettingsForm):
         help_text=_("Publicly show how many tickets of a certain type are still available."),
         required=False
     )
+    waiting_list_enabled = forms.BooleanField(
+        label=_("Enable waiting list"),
+        help_text=_("Once a ticket is sold out, people can add themselves to a waiting list. As soon as a ticket "
+                    "becomes available again, it will be reserved for the first person on the waiting list and this "
+                    "person will receive an email notification. This reservation will be valid for a period of 48 "
+                    "hours."),
+        required=False
+    )
     attendee_names_asked = forms.BooleanField(
         label=_("Ask for attendee names"),
         help_text=_("Ask for a name for all tickets which include admission to the event."),
