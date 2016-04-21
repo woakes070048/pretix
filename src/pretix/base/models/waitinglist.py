@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -47,3 +48,10 @@ class WaitingListEntry(LoggedModel):
 
     def __str__(self):
         return '%s waits for %s' % (str(self.email), str(self.item))
+
+    def clean(self):
+        if WaitingListEntry.objects.filter(
+            item=self.item, variation=self.variation, email=self.email
+        ).exclude(pk=self.pk).exists():
+            raise ValidationError(_('You are already on this waiting list! We will notify '
+                                    'you as soon as we have a ticket available for you.'))

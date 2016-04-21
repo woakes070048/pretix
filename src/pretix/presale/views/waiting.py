@@ -4,9 +4,9 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
 
-from ..forms.waitinglist import WaitingListForm
-from ...base.models import Item, ItemVariation
+from ...base.models import Item, ItemVariation, WaitingListEntry
 from ...multidomain.urlreverse import eventreverse
+from ..forms.waitinglist import WaitingListForm
 
 
 class WaitingView(FormView):
@@ -16,11 +16,16 @@ class WaitingView(FormView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['event'] = self.request.event
+        kwargs['instance'] = WaitingListEntry(
+            item=self.item_and_variation[0], variation=self.item_and_variation[1],
+            event=self.request.event
+        )
         return kwargs
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data()
         ctx['event'] = self.request.event
+        ctx['item'], ctx['variation'] = self.item_and_variation
         return ctx
 
     @cached_property
@@ -44,3 +49,12 @@ class WaitingView(FormView):
             return redirect(eventreverse(self.request.event, 'presale:event.index'))
 
         return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, _("We've added you to the waiting list. You will receive "
+                                         "an email as soon as tickets get available again."))
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return eventreverse(self.request.event, 'presale:event.index')
